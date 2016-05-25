@@ -1,0 +1,43 @@
+* "Zsh":http://www.zsh.org/ is an interactive shell that is mostly compatible with Bash, 
+* "Bash-Completion":https://github.com/scop/bash-completion enhances the shell with automatic and programmable commands and arguments completions. It works also on Windows and Mac OS X systems because it depends only on the Bash shell;
+* "Autojump":https://github.com/wting/autojump stores the last visited directories and allows for fast navigation in the file system. It works also on Windows and Mac OS X systems because it uses Python.
+
+All three together are really useful tools that are going to increase the productivity of any console-user immensely, although the Zsh shell should only by used for the console and not for scripts, because of portability and interoperability issues. This article will describe how install and configure those tools on a Debian Jessie system (but it should be the same on any other GNU/Linux system). Basically, everything is contained in the Makefile and the simple command @make@ will install and configure those tools. The make targets will use optional environment variables and arguments to customize the tools.
+
+h2. Makefile
+
+<pre title="Run Makefile" lang="bash">
+make
+</pre>
+
+h3. Environment Variables
+
+* @http_proxy@
+* @https_proxy@
+* @ftp_proxy@
+* @no_proxy@, if those environment variables are present, the make targets will configure @sudoers@, @apt@ and Zsh to use the environment variables.
+
+<pre title="Proxies" lang="bash">
+http_proxy="http://myproxy:8080"; https_proxy="http://myproxy:8080"; ftp_proxy="http://myproxy:8080"; no_proxy="localhost,127.0.0.1"; make
+</pre>
+
+h3. Arguments
+
+* @WORK@ sets the work directory, defaults to the user home directory;
+* @THEME@ sets the "oh-my-zsh theme":https://github.com/robbyrussell/oh-my-zsh/wiki/themes, defaults to "gentoo";
+* @PLUGINS@ sets the "plugins":https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins to load, defaults to "";
+* @REMOTE_EDITOR@ sets the remote editor to use, defaults to "emacs";
+* @LOCAL_EDITOR@ sets the local editor to use, defaults to "emacs";
+
+h3. Additional Targets
+
+* @geometry-theme@ installs and sets the "Geometry theme":https://github.com/frmendes/geometry
+
+h3. Test
+
+Using "Vagrant":https://www.vagrantup.com/ a test system can be installed in "VirtualBox":https://www.virtualbox.org/ to test and preview the tools. The target will install Debian Jessie image in VirtualBox, run @make@ and enter the system via @ssh@. The proxy environment variables mentioned above are passed to the system. After the user reviewed and exit the system, the system is removed.
+
+<pre title="Test via Vagrant" lang="bash">
+make test
+</pre>
+
