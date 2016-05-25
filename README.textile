@@ -1,4 +1,6 @@
-<img src="http://www.mueller-public.de/wp-content/uploads/2016/05/image-300x179.png" alt="Setup and Configure Zsh, Bash-Completion, Autojump" width="300" height="179" style="float: right;" class="alignright size-medium wp-image-714" />
+<p align="center">
+<img src="http://www.mueller-public.de/wp-content/uploads/2016/05/image-300x179.png" alt="Setup and Configure Zsh, Bash-Completion, Autojump" width="300" height="179" style="float: right;" class="size-medium wp-image-714" />
+</p>
 
 * "Zsh":http://www.zsh.org/ is an interactive shell that is mostly compatible with Bash, 
 * "Bash-Completion":https://github.com/scop/bash-completion enhances the shell with automatic and programmable commands and arguments completions. It works also on Windows and Mac OS X systems because it depends only on the Bash shell;
