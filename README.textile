@@ -4,11 +4,26 @@
 
 All three together are really useful tools that are going to increase the productivity of any console-user immensely, although the Zsh shell should only by used for the console and not for scripts, because of portability and interoperability issues. This article will describe how install and configure those tools on a Debian Jessie system (but it should be the same on any other GNU/Linux system). Basically, everything is contained in the Makefile and the simple command @make@ will install and configure those tools. The make targets will use optional environment variables and arguments to customize the tools.
 
-h2. Makefile
+h2. Usage
 
-<pre title="Run Makefile" lang="bash">
+Download the archive from "Github devent/zsh-setup":https://github.com/devent/zsh-setup/archive/master.zip, unpack the archive somewhere, open a console inside the directory where the archive was unpacked and run @make@.
+
+<pre title="Usage example." lang="bash">
+wget https://github.com/devent/zsh-setup/archive/master.zip -O zsh-setup.zip
+unzip zsh-setup.zip
+cd zsh-setup-master
 make
 </pre>
+
+The following files and directories are created by the default make target.
+
+* @/etc/sudoers.d/08proxy@
+* @/etc/apt/apt.conf.d/08proxy@
+* @/etc/profile.d/proxy.sh@ only if any proxy environment variables were set;
+* @.user_rc@ the file is not removed or changed and is suppose to have user specific aliases and functions;
+* @.user_zshrc@ the file is not removed or changed and is suppose to have user specific Zsh settings;
+* @.zshrc@
+* @/opt/oh-my-zsh@
 
 h3. Environment Variables
 
@@ -31,6 +46,12 @@ h3. Arguments
 
 h3. Additional Targets
 
+* @clean@ removes the generated files:
+** @/etc/sudoers.d/08proxy@
+** @/etc/apt/apt.conf.d/08proxy@
+** @/etc/profile.d/proxy.sh@
+** @.zshrc@
+
 * @geometry-theme@ installs and sets the "Geometry theme":https://github.com/frmendes/geometry
 
 h3. Test
@@ -41,3 +62,10 @@ Using "Vagrant":https://www.vagrantup.com/ a test system can be installed in "Vi
 make test
 </pre>
 
+h2. License
+
+Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+
+* "http://www.apache.org/licenses/LICENSE-2.0":http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
