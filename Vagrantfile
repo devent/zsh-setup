@@ -10,8 +10,6 @@ ftpProxy ||= ''
 noProxy = ENV['no_proxy']
 noProxy ||= ''
 
-print noProxy
-
 Vagrant.configure(2) do |config|
 
   # distribution
