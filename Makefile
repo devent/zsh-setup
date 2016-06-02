@@ -66,7 +66,7 @@ $(OHMYZSH):
 	$(SUDO) aptitude -y install wget unzip
 	cd /tmp; \
 	wget https://github.com/robbyrussell/oh-my-zsh/archive/master.zip -O oh-my-zsh.zip; \
-	$(SUDO) unzip oh-my-zsh.zip; \
+	$(SUDO) unzip -q oh-my-zsh.zip; \
 	$(SUDO) mv /tmp/oh-my-zsh-master /opt/oh-my-zsh/
 	
 $(ZSHRC):
