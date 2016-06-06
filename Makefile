@@ -1,22 +1,42 @@
-.DEFAULT_GOAL := all
-WORK ?= $(shell realpath ~)
-SUDO_PROXY := /etc/sudoers.d/08proxy
-APT_PROXY := /etc/apt/apt.conf.d/08proxy
-PROXY := /etc/profile.d/proxy.sh
-USER_RC := $(WORK)/.user_rc
-USER_ZSHRC := $(WORK)/.user_zshrc
-ZSH := /bin/zsh
-ZSHRC := $(WORK)/.zshrc
-OHMYZSH := /opt/oh-my-zsh
-AUTOJUMP := /usr/share/autojump/autojump.zsh
-BASH_COMPLETION := /etc/bash_completion.d
+# set the zsh plugins to load, for example ``make PLUGINS="git docker"''.
 PLUGINS ?=
+# set the oh-my-zsh theme to load.
 THEME ?= gentoo
+# set the remote editor.
 REMOTE_EDITOR ?= emacs
+# set the local editor.
 LOCAL_EDITOR ?= emacs
+# set the working directory, for example ``make WORK=/tmp'' for test.
+WORK ?= $(shell realpath ~)
+# allows passing of proxy variables to sudo.
+SUDO_PROXY := /etc/sudoers.d/08proxy
+# apt proxy.
+APT_PROXY := /etc/apt/apt.conf.d/08proxy
+# proxy environmen variables.
+PROXY := /etc/profile.d/proxy.sh
+# shell unspecific settings, for example alias, paths, etc.
+USER_RC := $(WORK)/.user_rc
+# zsh specific settings.
+USER_ZSHRC := $(WORK)/.user_zshrc
+# zsh shell.
+ZSH := /bin/zsh
+# zsh configuration file, will be overriden by this script.
+ZSHRC := $(WORK)/.zshrc
+# screen tool.
+OHMYZSH := /opt/oh-my-zsh
+# autojump.
+AUTOJUMP := /usr/share/autojump/autojump.zsh
+# bash-completion.
+BASH_COMPLETION := /etc/bash_completion.d
+# applications.
 APT := $(shell which aptitude)
 SUDO := $(shell which sudo)
+# the current user.
 USER := $(shell whoami)
+# default goal is "all".
+.DEFAULT_GOAL := all
+
+.PHONY: all test proxy setup clean screen zshrcuser geometry-theme
 
 .PHONY: test proxy all setup clean zshrcuser geometry-theme
 
