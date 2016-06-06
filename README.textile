@@ -5,8 +5,23 @@
 * "Zsh":http://www.zsh.org/ is an interactive shell that is mostly compatible with Bash, 
 * "Bash-Completion":https://github.com/scop/bash-completion enhances the shell with automatic and programmable commands and arguments completions. It works also on Windows and Mac OS X systems because it depends only on the Bash shell;
 * "Autojump":https://github.com/wting/autojump stores the last visited directories and allows for fast navigation in the file system. It works also on Windows and Mac OS X systems because it uses Python.
+* "Screen":https://github.com/wting/autojump starts a new detached session.
 
 All three together are really useful tools that are going to increase the productivity of any console-user immensely, although the Zsh shell should only by used for the console and not for scripts, because of portability and interoperability issues. This article will describe how install and configure those tools on a Debian Jessie system (but it should be the same on any other GNU/Linux system). Basically, everything is contained in the Makefile and the simple command @make@ will install and configure those tools. The make targets will use optional environment variables and arguments to customize the tools.
+
+h2. Version History
+
+* 06/06/2016 - 1.1
+
+** add @screenrc@ support;
+
+* 25/05/2016 - 1.0
+
+** first release version;
+
+h2. Supported Systems
+
+Currently the Makefile works only on Ubuntu and Debian with @aptitude@ and @sudo@ support. In later versions support for additional systems will be added.
 
 h2. Usage
 
@@ -28,6 +43,7 @@ The following files and directories are created by the default make target.
 * @.user_zshrc@ the file is not removed or changed and is suppose to have user specific Zsh settings;
 * @.zshrc@
 * @/opt/oh-my-zsh@
+* @.screenrc@
 
 h3. Environment Variables
 
@@ -55,6 +71,9 @@ h3. Additional Targets
 ** @/etc/apt/apt.conf.d/08proxy@
 ** @/etc/profile.d/proxy.sh@
 ** @.zshrc@
+** @.screenrc@
+
+* @screen@ installs and setups only @screen@
 
 * @geometry-theme@ installs and sets the "Geometry theme":https://github.com/frmendes/geometry
 

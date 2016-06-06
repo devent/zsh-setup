@@ -1,3 +1,24 @@
+# Copyright 2016 Erwin Müller, erwin.mueller@deventm.org
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor
+# license agreements. See the NOTICE file distributed with this work for
+# additional information regarding copyright ownership.  The ASF licenses this
+# file to you under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License.  You may obtain a copy of
+# the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations under the License.
+#
+# 06/06/2016 - 1.1
+# add @screenrc@ support;
+# 25/05/2016 - 1.0
+# first release version;
+#
 # set the zsh plugins to load, for example ``make PLUGINS="git docker"''.
 PLUGINS ?=
 # set the oh-my-zsh theme to load.
@@ -90,7 +111,7 @@ $(BASH_COMPLETION):
 $(OHMYZSH):
 	$(SUDO) aptitude -y install wget unzip
 	cd /tmp; \
-	wget -q https://github.com/robbyrussell/oh-my-zsh/archive/master.zip -O oh-my-zsh.zip; \
+	wget https://github.com/robbyrussell/oh-my-zsh/archive/master.zip -O oh-my-zsh.zip; \
 	$(SUDO) unzip -q oh-my-zsh.zip; \
 	$(SUDO) mv /tmp/oh-my-zsh-master /opt/oh-my-zsh/
 	
