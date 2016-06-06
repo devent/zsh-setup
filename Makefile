@@ -23,6 +23,10 @@ ZSH := /bin/zsh
 # zsh configuration file, will be overriden by this script.
 ZSHRC := $(WORK)/.zshrc
 # screen tool.
+SCREEN := /usr/bin/screen
+# screen configuration file, will be overriden by this script.
+SCREEN_RC := $(WORK)/.screenrc
+# oh-my-zsh.
 OHMYZSH := /opt/oh-my-zsh
 # autojump.
 AUTOJUMP := /usr/share/autojump/autojump.zsh
@@ -38,7 +42,7 @@ USER := $(shell whoami)
 
 .PHONY: all test proxy setup clean screen zshrcuser geometry-theme
 
-.PHONY: test proxy all setup clean zshrcuser geometry-theme
+all: setup $(APT) $(SUDO) $(APT_PROXY) $(PROXY) $(ZSH) $(ZSHRC) $(OHMYZSH) $(AUTOJUMP) $(BASH_COMPLETION) screen $(USER_RC) $(USER_ZSHRC) zshrcuser
 
 test: setup
 	if [ -z "`vagrant plugin list|grep 'vagrant-vbguest (0.11.0)'`" ]; then \
@@ -55,16 +59,17 @@ test: setup
 
 proxy: setup $(SUDO) $(APT_PROXY) $(PROXY)
 	
-all: setup $(APT) $(SUDO) $(APT_PROXY) $(PROXY) $(ZSH) $(ZSHRC) $(OHMYZSH) $(AUTOJUMP) $(BASH_COMPLETION) $(USER_RC) $(USER_ZSHRC) zshrcuser
-
 setup:
 	chmod +x *.sh
 
 clean:
-	$(SUDO) rm $(SUDO_PROXY)
-	$(SUDO) rm $(APT_PROXY)
-	$(SUDO) rm $(PROXY)
-	rm $(ZSHRC)
+	$(SUDO) rm $(SUDO_PROXY); true
+	$(SUDO) rm $(APT_PROXY); true
+	$(SUDO) rm $(PROXY); true
+	rm $(ZSHRC); true
+	rm $(SCREEN_RC); true
+
+screen: $(SCREEN) $(SCREEN_RC)
 	
 $(APT):
 	
@@ -89,6 +94,9 @@ $(OHMYZSH):
 	$(SUDO) unzip -q oh-my-zsh.zip; \
 	$(SUDO) mv /tmp/oh-my-zsh-master /opt/oh-my-zsh/
 	
+$(SCREEN):
+	$(SUDO) $(APT) -y install screen
+	
 $(ZSHRC):
 	export OHMYZSH=$(OHMYZSH); \
 	export THEME=$(THEME); \
@@ -98,6 +106,7 @@ $(ZSHRC):
 	export PROXY=$(PROXY); \
 	export USER_RC=$(USER_RC); \
 	export USER_ZSHRC=$(USER_ZSHRC); \
+	[ -f "$(ZSHRC)" ] && cp "$(ZSHRC)" "$(ZSHRC).backup"; true; \
 	./zsh_template.sh > $(ZSHRC)
 
 $(PROXY):
@@ -112,6 +121,10 @@ $(USER_RC):
 
 $(USER_ZSHRC):
 	touch $(USER_ZSHRC)
+
+$(SCREEN_RC):
+	[ -f "$(SCREEN_RC)" ] && cp "$(SCREEN_RC)" "$(SCREEN_RC).backup"; true; \
+	./screenrc_template.sh > $(SCREEN_RC)
 	
 zshrcuser:
 	$(SUDO) usermod -s /bin/zsh $(USER)
