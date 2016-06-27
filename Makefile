@@ -116,6 +116,7 @@ $(OHMYZSH):
 	wget https://github.com/robbyrussell/oh-my-zsh/archive/master.zip -O oh-my-zsh.zip; \
 	$(SUDO) unzip -q oh-my-zsh.zip; \
 	$(SUDO) mv /tmp/oh-my-zsh-master /opt/oh-my-zsh/
+	$(SUDO) chmod o+w  /opt/oh-my-zsh/cache
 	
 $(SCREEN):
 	$(SUDO) $(APT) -y install screen
