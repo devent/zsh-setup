@@ -61,11 +61,20 @@ USER := $(shell whoami)
 # default goal is "all".
 .DEFAULT_GOAL := all
 
+include docker_make_utils/Makefile.help
+
 .PHONY: all test proxy setup clean screen zshrcuser geometry-theme
 
-all: setup $(APT) $(SUDO) $(APT_PROXY) $(PROXY) $(ZSH) $(ZSHRC) $(OHMYZSH) $(AUTOJUMP) $(BASH_COMPLETION) screen $(USER_RC) $(USER_ZSHRC) zshrcuser
+all: setup $(APT) $(SUDO) $(APT_PROXY) $(PROXY) $(ZSH) $(ZSHRC) $(OHMYZSH) $(AUTOJUMP) $(BASH_COMPLETION) screen $(USER_RC) $(USER_ZSHRC) zshrcuser ##@default Setups everything.
 
-test: setup
+clean: ##@targets Removes the generated files except .user_rc and .user_zsh.
+	$(SUDO) rm $(SUDO_PROXY); true
+	$(SUDO) rm $(APT_PROXY); true
+	$(SUDO) rm $(PROXY); true
+	rm $(ZSHRC); true
+	rm $(SCREEN_RC); true
+
+test: setup ##@targets Creates a virtual machine and tests the setup.
 	if [ -z "`vagrant plugin list|grep 'vagrant-vbguest (0.11.0)'`" ]; then \
 	vagrant plugin install vagrant-vbguest; \
 	fi
@@ -82,13 +91,6 @@ proxy: setup $(SUDO) $(APT_PROXY) $(PROXY)
 	
 setup:
 	chmod +x *.sh
-
-clean:
-	$(SUDO) rm $(SUDO_PROXY); true
-	$(SUDO) rm $(APT_PROXY); true
-	$(SUDO) rm $(PROXY); true
-	rm $(ZSHRC); true
-	rm $(SCREEN_RC); true
 
 screen: $(SCREEN) $(SCREEN_RC)
 	
@@ -150,7 +152,7 @@ $(SCREEN_RC):
 zshrcuser:
 	$(SUDO) usermod -s /bin/zsh $(USER)
 
-geometry-theme: $(OHMYZSH)/custom/themes
+geometry-theme: $(OHMYZSH)/custom/themes ##@themes Setups the geometry oh-my-zsh theme.
 	$(SUDO) aptitude -y install sed wget unzip
 	cd /tmp; \
 	wget https://github.com/frmendes/geometry/archive/master.zip -O geometry.zip; \
