@@ -61,7 +61,7 @@ USER := $(shell whoami)
 # default goal is "all".
 .DEFAULT_GOAL := all
 
-include docker_make_utils/Makefile.help
+include docker-make-utils/Makefile.help
 
 .PHONY: all test proxy setup clean screen zshrcuser geometry-theme
 

@@ -1,0 +1,3 @@
+[submodule "docker-make-utils"]
+	path = docker-make-utils
+	url = git@anrisoftware.com:robobeerun/docker-make-utils.git
